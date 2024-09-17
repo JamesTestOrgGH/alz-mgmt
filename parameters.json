@@ -1,0 +1,18 @@
+{
+  "IDENTITY_SUBSCRIPTION_ID": "93a95fd3-3481-4b05-8d1c-c99917694146",
+  "LOCATION": "uksouth",
+  "AVAILABILITY_ZONES": [
+    "1",
+    "2",
+    "3"
+  ],
+  "MANAGEMENT_GROUP_ID": "alz",
+  "MANAGEMENT_SUBSCRIPTION_ID": "b38f7bd8-51da-4df1-914c-4a20ef116a6a",
+  "PREFIX": "alz",
+  "ROOT_PARENT_MANAGEMENT_GROUP_ID": "bafaecc9-e82c-4aec-9161-bb13e0044c3e",
+  "CONNECTIVITY_RESOURCE_GROUP": "rg-alz-connectivity",
+  "NETWORK_TYPE": "vwanConnectivity",
+  "LOGGING_RESOURCE_GROUP": "rg-alz-logging",
+  "CONNECTIVITY_SUBSCRIPTION_ID": "79573c82-89eb-47ae-968e-c943e4549d2f",
+  "RELEASE_VERSION": "v0.19.2"
+}
