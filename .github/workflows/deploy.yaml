@@ -69,7 +69,7 @@ jobs:
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
 
       - name: 'What If: Logging and Sentinel Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -85,7 +85,7 @@ jobs:
           deploymentType: 'subscription'
           firstRunWhatIf: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
           
       - name: 'What If: Logging and Sentinel Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -101,7 +101,7 @@ jobs:
           deploymentType: 'resourceGroup'
           firstRunWhatIf: 'false'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
           
       - name: 'What If: Custom Policy Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -117,7 +117,7 @@ jobs:
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
       - name: 'What If: Custom Role Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         
@@ -132,7 +132,7 @@ jobs:
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
           
       - name: 'What If: Custom Management Group Diagnostic Settings'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -148,7 +148,7 @@ jobs:
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
       - name: 'What If: Built-in and Custom Policy Assignments Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         
@@ -163,7 +163,7 @@ jobs:
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
           
       - name: 'What If: Deploy Subscription Placement'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -179,7 +179,7 @@ jobs:
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
           
       - name: 'What If: Connectivity Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -195,7 +195,8 @@ jobs:
           deploymentType: 'subscription'
           firstRunWhatIf: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
+          
       - name: 'What If: Hub (VWAN) Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         
@@ -210,7 +211,7 @@ jobs:
           deploymentType: 'resourceGroup'
           firstRunWhatIf: 'false'
           firstDeployment: '${{ env.firstDeployment }}'
-          whatIfEnabled: 'true'
+          
         
           
   deploy:
