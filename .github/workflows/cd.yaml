@@ -8,20 +8,8 @@ on:
 jobs:
   plan_and_apply:
     uses: JamesTestOrgGH/alz-mgmt-templates/.github/workflows/cd-template.yaml@main
-    name: 'CD'
+    name: 'Deploy LZ'
     permissions:
       id-token: write
       contents: read
-    with:
-      
-      destroy: false
-      management_groups: true
-      logging_and_sentinel_resource_group: false
-      logging_and_sentinel: false
-      custom_policy_definitions: false
-      custom_role_definitions: false
-      management_group_diagnostic_settings: false
-      policy_assignments: false
-      subscription_placement: false
-      connectivity_resource_group: false
-      vwan: false
+
