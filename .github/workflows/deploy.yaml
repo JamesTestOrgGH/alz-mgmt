@@ -53,7 +53,6 @@ jobs:
 
       - name: 'Deploy: Management Groups Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        
         with:
           displayName: 'Management Groups Deployment'
           templateFilePath: './infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep'
@@ -67,7 +66,6 @@ jobs:
           whatIfEnabled: 'false'
       - name: 'Deploy: Logging and Sentinel Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        
         with:
           displayName: 'Logging and Sentinel Resource Group Deployment'
           templateFilePath: './infra-as-code/bicep/modules/resourceGroup/resourceGroup.bicep'
@@ -81,7 +79,6 @@ jobs:
           whatIfEnabled: 'false'
       - name: 'Deploy: Logging and Sentinel Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        
         with:
           displayName: 'Logging and Sentinel Deployment'
           templateFilePath: './infra-as-code/bicep/modules/logging/logging.bicep'
@@ -89,6 +86,99 @@ jobs:
           managementGroupId: ''
           subscriptionId: '${{ env.MANAGEMENT_SUBSCRIPTION_ID }}'
           resourceGroupName: '${{ env.LOGGING_RESOURCE_GROUP }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'resourceGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
+
+      - name: 'Deploy: Custom Policy Definitions Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        with:
+          displayName: 'Custom Policy Definitions Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep'
+          templateParametersFilePath: './config/custom-parameters/customPolicyDefinitions.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          subscriptionId: ''
+          resourceGroupName: ''
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
+      - name: 'Deploy: Custom Role Definitions Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@mai
+        with:
+          displayName: 'Custom Role Definitions Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep'
+          templateParametersFilePath: './config/custom-parameters/customRoleDefinitions.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          subscriptionId: ''
+          resourceGroupName: ''
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
+      - name: 'Deploy: Custom Management Group Diagnostic Settings'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        with:
+          displayName: 'Custom Management Group Diagnostic Settings'
+          templateFilePath: './infra-as-code/bicep/orchestration/mgDiagSettingsAll/mgDiagSettingsAll.bicep'
+          templateParametersFilePath: './config/custom-parameters/mgDiagSettingsAll.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          subscriptionId: ''
+          resourceGroupName: ''
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
+      - name: 'Deploy: Built-in and Custom Policy Assignments Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        
+        with:
+          displayName: 'Built-in and Custom Policy Assignments Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep'
+          templateParametersFilePath: './config/custom-parameters/alzDefaultPolicyAssignments.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          subscriptionId: ''
+          resourceGroupName: ''
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
+      - name: 'Deploy: Deploy Subscription Placement'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        with:
+          displayName: 'Deploy Subscription Placement'
+          templateFilePath: './infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep'
+          templateParametersFilePath: './config/custom-parameters/subPlacementAll.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          subscriptionId: ''
+          resourceGroupName: ''
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
+      - name: 'Deploy: Connectivity Resource Group Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        with:
+          displayName: 'Connectivity Resource Group Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/resourceGroup/resourceGroup.bicep'
+          templateParametersFilePath: './config/custom-parameters/resourceGroupConnectivity.parameters.all.json'
+          managementGroupId: ''
+          subscriptionId: '${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: ''
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'subscription'
+          firstRunWhatIf: 'true'
+          whatIfEnabled: 'false'
+      - name: 'Deploy: Hub (VWAN) Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        with:
+          displayName: 'Hub (VWAN) Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/vwanConnectivity/vwanConnectivity.bicep'
+          templateParametersFilePath: './config/custom-parameters/vwanConnectivity.parameters.all.json'
+          managementGroupId: ''
+          subscriptionId: '${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: '${{ env.CONNECTIVITY_RESOURCE_GROUP }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
           firstRunWhatIf: 'false'
