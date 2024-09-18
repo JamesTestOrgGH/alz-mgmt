@@ -6,6 +6,71 @@ on:
 
 
 jobs:
+
+  whatif:
+    name: What If
+    runs-on:
+      ubuntu-latest
+    concurrency: mgmt-tfstate
+    environment: alz-mgmt-plan
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      PARAMETERS_FILE_NAME: parameters.json
+
+    steps:
+      - name: Checkout Bicep Module
+        uses: actions/checkout@v4
+
+      - name: Get Bicep Variables
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-variables@main
+        with:
+          parameters_file_name: ${{ env.PARAMETERS_FILE_NAME }}
+
+      - name: Get On Demand Folder infra-as-code
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-on-demand-folder@main
+        with:
+          repository: "https://github.com/Azure/ALZ-Bicep"
+          releaseArtifactName: "accelerator.zip"
+          releaseVersion: "${{ env.RELEASE_VERSION }}"
+          sourcePath: "infra-as-code"
+          targetPath: "infra-as-code"
+
+
+      - name: Install Bicep and Update Az Module
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-installer@main
+
+      - name: OIDC Login to Tenant
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      - name: First Deployment Check
+        id: firstDeploymentCheck
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-first-deployment-check@main
+        if: ${{ !inputs.destroy }}
+        with:
+          managementGroupId: ${{ env.MANAGEMENT_GROUP_ID }}
+
+      - name: 'What If: Management Groups Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: ${{ inputs.management_groups && !inputs.destroy }}
+        with:
+          displayName: 'Management Groups Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep'
+          templateParametersFilePath: './config/custom-parameters/managementGroups.parameters.all.json'
+          managementGroupId: '${{ env.ROOT_PARENT_MANAGEMENT_GROUP_ID }}'
+          subscriptionId: ''
+          resourceGroupName: ''
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          firstRunWhatIf: 'true'
+          firstDeployment: '${{ env.firstDeployment }}'
+          whatIfEnabled: 'true'
         
           
   deploy:
@@ -62,8 +127,8 @@ jobs:
           resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
-          firstRunWhatIf: 'true'
-          whatIfEnabled: 'false'
+
+          
       - name: 'Deploy: Logging and Sentinel Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         with:
@@ -75,8 +140,7 @@ jobs:
           resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
-          firstRunWhatIf: 'true'
-          whatIfEnabled: 'false'
+          
       - name: 'Deploy: Logging and Sentinel Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         with:
@@ -88,8 +152,7 @@ jobs:
           resourceGroupName: '${{ env.LOGGING_RESOURCE_GROUP }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
-          firstRunWhatIf: 'false'
-          whatIfEnabled: 'false'
+          
 
       - name: 'Deploy: Custom Policy Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -102,8 +165,7 @@ jobs:
           resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
-          firstRunWhatIf: 'false'
-          whatIfEnabled: 'false'
+          
       - name: 'Deploy: Custom Role Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         with:
@@ -115,8 +177,7 @@ jobs:
           resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
-          firstRunWhatIf: 'false'
-          whatIfEnabled: 'false'
+          
       - name: 'Deploy: Custom Management Group Diagnostic Settings'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         with:
@@ -128,8 +189,7 @@ jobs:
           resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
-          firstRunWhatIf: 'false'
-          whatIfEnabled: 'false'
+          
       - name: 'Deploy: Built-in and Custom Policy Assignments Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         
@@ -142,8 +202,7 @@ jobs:
           resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
-          firstRunWhatIf: 'false'
-          whatIfEnabled: 'false'
+          
       - name: 'Deploy: Deploy Subscription Placement'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         with:
@@ -155,8 +214,7 @@ jobs:
           resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
-          firstRunWhatIf: 'false'
-          whatIfEnabled: 'false'
+          
       - name: 'Deploy: Connectivity Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         with:
@@ -168,8 +226,7 @@ jobs:
           resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
-          firstRunWhatIf: 'true'
-          whatIfEnabled: 'false'
+         
       - name: 'Deploy: Hub (VWAN) Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         with:
@@ -181,5 +238,4 @@ jobs:
           resourceGroupName: '${{ env.CONNECTIVITY_RESOURCE_GROUP }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
-          firstRunWhatIf: 'false'
-          whatIfEnabled: 'false'
+         
