@@ -1,5 +1,5 @@
 ---
-name: 01 Azure Landing Zones Continuous Integration
+name: 01 Azure Landing Zones Continuous Integration1
 on:
   pull_request:
     branches:
