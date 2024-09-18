@@ -24,12 +24,12 @@ jobs:
         uses: actions/checkout@v4
   
       - name: Get Bicep Variables
-        uses: SG-ITECS/alz-mgmt-templates/.github/actions/bicep-variables@main
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-variables@main
         with:
           parameters_file_name: ${{ env.PARAMETERS_FILE_NAME }}
   
       - name: Get On Demand Folder infra-as-code
-        uses: SG-ITECS/alz-mgmt-templates/.github/actions/bicep-on-demand-folder@main
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-on-demand-folder@main
         with:
           repository: "https://github.com/Azure/ALZ-Bicep"
           releaseArtifactName: "accelerator.zip"
