@@ -5,3 +5,18 @@ on:
   pull_request:
     branches:
       - main
+
+
+jobs:
+  whatif:
+    name: What If
+    runs-on:
+      ubuntu-latest
+    concurrency: mgmt-tfstate
+    environment: alz-mgmt-plan
+    permissions:
+      id-token: write
+      contents: read
+    if: ${{ !inputs.skip_what_if }}
+    env:
+      PARAMETERS_FILE_NAME: parameters.json
