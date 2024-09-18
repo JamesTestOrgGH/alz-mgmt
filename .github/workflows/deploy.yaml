@@ -85,6 +85,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
           firstRunWhatIf: 'true'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
           
@@ -101,6 +102,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
           firstRunWhatIf: 'false'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
           
@@ -117,6 +119,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
       - name: 'What If: Custom Role Definitions Deployment'
@@ -132,6 +135,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
           
@@ -148,6 +152,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
       - name: 'What If: Built-in and Custom Policy Assignments Deployment'
@@ -163,6 +168,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
           
@@ -179,6 +185,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
           
@@ -195,6 +202,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
           firstRunWhatIf: 'true'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
           
@@ -211,6 +219,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
           firstRunWhatIf: 'false'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
         
@@ -269,6 +278,7 @@ jobs:
           managementGroupId: '${{ env.ROOT_PARENT_MANAGEMENT_GROUP_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
+          whatIfEnabled: 'true'
 
           
       - name: 'Deploy: Logging and Sentinel Resource Group Deployment'
@@ -280,6 +290,7 @@ jobs:
           subscriptionId: '${{ env.MANAGEMENT_SUBSCRIPTION_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
+          whatIfEnabled: 'true'
           
       - name: 'Deploy: Logging and Sentinel Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -292,6 +303,7 @@ jobs:
           resourceGroupName: '${{ env.LOGGING_RESOURCE_GROUP }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
+          whatIfEnabled: 'true'
           
 
       - name: 'Deploy: Custom Policy Definitions Deployment'
@@ -301,7 +313,7 @@ jobs:
           templateFilePath: './infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep'
           templateParametersFilePath: './config/custom-parameters/customPolicyDefinitions.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
-          
+          whatIfEnabled: 'true'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           
@@ -312,7 +324,7 @@ jobs:
           templateFilePath: './infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep'
           templateParametersFilePath: './config/custom-parameters/customRoleDefinitions.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
-          
+          whatIfEnabled: 'true'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           
@@ -323,7 +335,7 @@ jobs:
           templateFilePath: './infra-as-code/bicep/orchestration/mgDiagSettingsAll/mgDiagSettingsAll.bicep'
           templateParametersFilePath: './config/custom-parameters/mgDiagSettingsAll.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
-          
+          whatIfEnabled: 'true'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           
@@ -335,7 +347,7 @@ jobs:
           templateFilePath: './infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep'
           templateParametersFilePath: './config/custom-parameters/alzDefaultPolicyAssignments.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
-          
+          whatIfEnabled: 'true'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           
@@ -348,6 +360,7 @@ jobs:
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
+          whatIfEnabled: 'true'
           
       - name: 'Deploy: Connectivity Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -358,6 +371,7 @@ jobs:
           subscriptionId: '${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
+          whatIfEnabled: 'true'
          
       - name: 'Deploy: Hub (VWAN) Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -369,4 +383,5 @@ jobs:
           resourceGroupName: '${{ env.CONNECTIVITY_RESOURCE_GROUP }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
+          whatIfEnabled: 'true'
          
