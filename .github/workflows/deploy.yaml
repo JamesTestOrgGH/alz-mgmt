@@ -73,7 +73,7 @@ jobs:
 
       - name: 'What If: Logging and Sentinel Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.logging_and_sentinel_resource_group && !inputs.destroy }}
+        
         with:
           displayName: 'Logging and Sentinel Resource Group Deployment'
           templateFilePath: './infra-as-code/bicep/modules/resourceGroup/resourceGroup.bicep'
@@ -89,7 +89,7 @@ jobs:
           
       - name: 'What If: Logging and Sentinel Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.logging_and_sentinel && !inputs.destroy }}
+        
         with:
           displayName: 'Logging and Sentinel Deployment'
           templateFilePath: './infra-as-code/bicep/modules/logging/logging.bicep'
@@ -105,7 +105,7 @@ jobs:
           
       - name: 'What If: Custom Policy Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.custom_policy_definitions && !inputs.destroy }}
+        
         with:
           displayName: 'Custom Policy Definitions Deployment'
           templateFilePath: './infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep'
@@ -120,7 +120,7 @@ jobs:
           whatIfEnabled: 'true'
       - name: 'What If: Custom Role Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.custom_role_definitions && !inputs.destroy }}
+        
         with:
           displayName: 'Custom Role Definitions Deployment'
           templateFilePath: './infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep'
@@ -136,7 +136,7 @@ jobs:
           
       - name: 'What If: Custom Management Group Diagnostic Settings'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.management_group_diagnostic_settings && !inputs.destroy }}
+       
         with:
           displayName: 'Custom Management Group Diagnostic Settings'
           templateFilePath: './infra-as-code/bicep/orchestration/mgDiagSettingsAll/mgDiagSettingsAll.bicep'
@@ -151,7 +151,7 @@ jobs:
           whatIfEnabled: 'true'
       - name: 'What If: Built-in and Custom Policy Assignments Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.policy_assignments && !inputs.destroy }}
+        
         with:
           displayName: 'Built-in and Custom Policy Assignments Deployment'
           templateFilePath: './infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep'
@@ -167,7 +167,7 @@ jobs:
           
       - name: 'What If: Deploy Subscription Placement'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.subscription_placement && !inputs.destroy }}
+        
         with:
           displayName: 'Deploy Subscription Placement'
           templateFilePath: './infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep'
@@ -183,7 +183,7 @@ jobs:
           
       - name: 'What If: Connectivity Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.connectivity_resource_group && !inputs.destroy }}
+        
         with:
           displayName: 'Connectivity Resource Group Deployment'
           templateFilePath: './infra-as-code/bicep/modules/resourceGroup/resourceGroup.bicep'
@@ -198,7 +198,7 @@ jobs:
           whatIfEnabled: 'true'
       - name: 'What If: Hub (VWAN) Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.vwan && !inputs.destroy }}
+        
         with:
           displayName: 'Hub (VWAN) Deployment'
           templateFilePath: './infra-as-code/bicep/modules/vwanConnectivity/vwanConnectivity.bicep'
@@ -216,7 +216,7 @@ jobs:
   deploy:
     name: Deploy
     needs: whatif
-    if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    
     runs-on:
       ubuntu-latest
     concurrency: mgmt-tfstate
