@@ -15,7 +15,6 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    if: ${{ !inputs.skip_what_if }}
     env:
       PARAMETERS_FILE_NAME: parameters.json
 
