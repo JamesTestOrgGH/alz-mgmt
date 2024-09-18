@@ -1,0 +1,6 @@
+---
+name: 02 Azure Landing Zones Deploy
+on:
+  pull_request:
+    branches:
+      - main
