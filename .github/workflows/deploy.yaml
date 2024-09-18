@@ -68,6 +68,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'true'
+          whatIfEnabled: 'true'
           firstDeployment: '${{ env.firstDeployment }}'
           
 
@@ -245,6 +246,7 @@ jobs:
           releaseVersion: "${{ env.RELEASE_VERSION }}"
           sourcePath: "infra-as-code"
           targetPath: "infra-as-code"
+          whatIfEnabled: 'true'
 
 
       - name: Install Bicep and Update Az Module
