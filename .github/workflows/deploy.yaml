@@ -105,7 +105,7 @@ jobs:
           firstRunWhatIf: 'false'
           whatIfEnabled: 'false'
       - name: 'Deploy: Custom Role Definitions Deployment'
-        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@mai
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
         with:
           displayName: 'Custom Role Definitions Deployment'
           templateFilePath: './infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep'
