@@ -35,4 +35,38 @@ jobs:
           releaseArtifactName: "accelerator.zip"
           releaseVersion: "${{ env.RELEASE_VERSION }}"
           sourcePath: "infra-as-code"
-          targetPath: "infra-as-code"  
+          targetPath: "infra-as-code"
+
+      - name: Install Bicep and Update Az Module
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-installer@main
+
+      - name: OIDC Login to Tenant
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      - name: First Deployment Check
+        id: firstDeploymentCheck
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-first-deployment-check@main
+        if: ${{ !inputs.destroy }}
+        with:
+          managementGroupId: ${{ env.MANAGEMENT_GROUP_ID }}
+
+      - name: 'What If: Management Groups Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: ${{ inputs.management_groups && !inputs.destroy }}
+        with:
+          displayName: 'Management Groups Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep'
+          templateParametersFilePath: './config/custom-parameters/managementGroups.parameters.all.json'
+          managementGroupId: '${{ env.ROOT_PARENT_MANAGEMENT_GROUP_ID }}'
+          subscriptionId: ''
+          resourceGroupName: ''
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          firstRunWhatIf: 'true'
+          firstDeployment: '${{ env.firstDeployment }}'
+          whatIfEnabled: 'true'
