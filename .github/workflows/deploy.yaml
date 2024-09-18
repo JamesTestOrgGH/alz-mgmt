@@ -75,6 +75,7 @@ jobs:
           
   deploy:
     name: Deploy
+    needs: whatif
     if: ${{ always() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
     runs-on:
       ubuntu-latest
