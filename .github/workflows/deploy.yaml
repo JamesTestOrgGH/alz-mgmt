@@ -56,7 +56,6 @@ jobs:
 
       - name: 'What If: Management Groups Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: ${{ inputs.management_groups && !inputs.destroy }}
         with:
           displayName: 'Management Groups Deployment'
           templateFilePath: './infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep'
