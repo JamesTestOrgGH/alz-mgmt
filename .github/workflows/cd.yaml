@@ -1,14 +1,1 @@
-name: 02 Azure Landing Zones Continuous Delivery
-on:
-  push:
-    branches:
-      - main
-  
-jobs:
-  plan_and_apply:
-    uses: JamesTestOrgGH/alz-mgmt-templates/.github/workflows/cd-template.yaml@main
-    name: 'Deploy LZ'
-    permissions:
-      id-token: write
-      contents: read
-
+name: Deploy Bicep ALZ
