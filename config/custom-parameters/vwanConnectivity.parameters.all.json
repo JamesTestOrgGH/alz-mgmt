@@ -35,9 +35,9 @@
     "parVirtualWanHubs": {
       "value": [
         {
-          "parVpnGatewayEnabled": true,
-          "parExpressRouteGatewayEnabled": true,
-          "parAzFirewallEnabled": true,
+          "parVpnGatewayEnabled": false,
+          "parExpressRouteGatewayEnabled": false,
+          "parAzFirewallEnabled": false,
           "parVirtualHubAddressPrefix": "10.100.0.0/23",
           "parHubLocation": "uksouth",
           "parHubRoutingPreference": "ExpressRoute",
@@ -45,7 +45,7 @@
           "parVirtualHubRoutingIntentDestinations": [],
           "parAzFirewallDnsServers": [],
           "parAzFirewallIntelMode": "Alert",
-          "parAzFirewallDnsProxyEnabled": true,
+          "parAzFirewallDnsProxyEnabled": false,
           "parAzFirewallTier": "Standard",
           "parAzFirewallAvailabilityZones": [
             "1",
@@ -68,7 +68,7 @@
       "value": "alz-ddos-plan"
     },
     "parPrivateDnsZonesEnabled": {
-      "value": true
+      "value": false
     },
     "parPrivateDnsZones": {
       "value": [
