@@ -279,6 +279,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
 
           
       - name: 'Deploy: Logging and Sentinel Resource Group Deployment'
@@ -291,6 +292,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
           
       - name: 'Deploy: Logging and Sentinel Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -304,6 +306,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
           
 
       - name: 'Deploy: Custom Policy Definitions Deployment'
@@ -314,6 +317,7 @@ jobs:
           templateParametersFilePath: './config/custom-parameters/customPolicyDefinitions.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           
@@ -325,6 +329,7 @@ jobs:
           templateParametersFilePath: './config/custom-parameters/customRoleDefinitions.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           
@@ -336,6 +341,7 @@ jobs:
           templateParametersFilePath: './config/custom-parameters/mgDiagSettingsAll.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           
@@ -348,6 +354,7 @@ jobs:
           templateParametersFilePath: './config/custom-parameters/alzDefaultPolicyAssignments.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           
@@ -361,6 +368,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
           
       - name: 'Deploy: Connectivity Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -372,6 +380,7 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
          
       - name: 'Deploy: Hub (VWAN) Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -384,4 +393,5 @@ jobs:
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
           whatIfEnabled: 'true'
+          firstRunWhatIf: 'false'
          
