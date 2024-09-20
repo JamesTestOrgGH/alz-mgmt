@@ -13,6 +13,7 @@ jobs:
       ubuntu-latest
     concurrency: mgmt-tfstate
     environment: alz-mgmt-plan
+    if: github.event_name == 'pull_request'
     permissions:
       id-token: write
       contents: read
@@ -25,11 +26,13 @@ jobs:
 
       - name: Get Bicep Variables
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-variables@main
+        if: github.event_name == 'pull_request'
         with:
           parameters_file_name: ${{ env.PARAMETERS_FILE_NAME }}
 
       - name: Get On Demand Folder infra-as-code
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-on-demand-folder@main
+        if: github.event_name == 'pull_request'
         with:
           repository: "https://github.com/Azure/ALZ-Bicep"
           releaseArtifactName: "accelerator.zip"
@@ -40,9 +43,11 @@ jobs:
 
       - name: Install Bicep and Update Az Module
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-installer@main
+        if: github.event_name == 'pull_request'
 
       - name: OIDC Login to Tenant
         uses: azure/login@v2
+        if: github.event_name == 'pull_request'
         with:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
@@ -52,12 +57,13 @@ jobs:
       - name: First Deployment Check
         id: firstDeploymentCheck
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-first-deployment-check@main
-        if: ${{ !inputs.destroy }}
+        if: github.event_name == 'pull_request'
         with:
           managementGroupId: ${{ env.MANAGEMENT_GROUP_ID }}
 
       - name: 'What If: Management Groups Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         with:
           displayName: 'Management Groups Deployment'
           templateFilePath: './infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep'
@@ -74,6 +80,7 @@ jobs:
 
       - name: 'What If: Logging and Sentinel Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         
         with:
           displayName: 'Logging and Sentinel Resource Group Deployment'
@@ -91,6 +98,7 @@ jobs:
           
       - name: 'What If: Logging and Sentinel Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         
         with:
           displayName: 'Logging and Sentinel Deployment'
@@ -108,6 +116,7 @@ jobs:
           
       - name: 'What If: Custom Policy Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         
         with:
           displayName: 'Custom Policy Definitions Deployment'
@@ -124,6 +133,7 @@ jobs:
           
       - name: 'What If: Custom Role Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         
         with:
           displayName: 'Custom Role Definitions Deployment'
@@ -141,6 +151,7 @@ jobs:
           
       - name: 'What If: Custom Management Group Diagnostic Settings'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
        
         with:
           displayName: 'Custom Management Group Diagnostic Settings'
@@ -157,6 +168,7 @@ jobs:
           
       - name: 'What If: Built-in and Custom Policy Assignments Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         
         with:
           displayName: 'Built-in and Custom Policy Assignments Deployment'
@@ -174,6 +186,7 @@ jobs:
           
       - name: 'What If: Deploy Subscription Placement'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         
         with:
           displayName: 'Deploy Subscription Placement'
@@ -191,6 +204,7 @@ jobs:
           
       - name: 'What If: Connectivity Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         
         with:
           displayName: 'Connectivity Resource Group Deployment'
@@ -208,6 +222,7 @@ jobs:
           
       - name: 'What If: Hub (VWAN) Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name == 'pull_request'
         
         with:
           displayName: 'Hub (VWAN) Deployment'
@@ -241,14 +256,17 @@ jobs:
     steps:
       - name: Checkout Bicep Module
         uses: actions/checkout@v4
+        if: github.event_name != 'pull_request'
 
       - name: Get Bicep Variables
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-variables@main
+        if: github.event_name != 'pull_request'
         with:
           parameters_file_name: ${{ env.PARAMETERS_FILE_NAME }}
 
       - name: Get On Demand Folder infra-as-code
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-on-demand-folder@main
+        if: github.event_name != 'pull_request'
         with:
           repository: "https://github.com/Azure/ALZ-Bicep"
           releaseArtifactName: "accelerator.zip"
@@ -260,9 +278,11 @@ jobs:
 
       - name: Install Bicep and Update Az Module
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-installer@main
+        if: github.event_name != 'pull_request'
 
       - name: OIDC Login to Tenant
         uses: azure/login@v2
+        if: github.event_name != 'pull_request'
         with:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
@@ -271,6 +291,7 @@ jobs:
 
       - name: 'Deploy: Management Groups Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Management Groups Deployment'
           templateFilePath: './infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep'
@@ -284,6 +305,7 @@ jobs:
           
       - name: 'Deploy: Logging and Sentinel Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Logging and Sentinel Resource Group Deployment'
           templateFilePath: './infra-as-code/bicep/modules/resourceGroup/resourceGroup.bicep'
@@ -296,6 +318,7 @@ jobs:
           
       - name: 'Deploy: Logging and Sentinel Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Logging and Sentinel Deployment'
           templateFilePath: './infra-as-code/bicep/modules/logging/logging.bicep'
@@ -311,6 +334,7 @@ jobs:
 
       - name: 'Deploy: Custom Policy Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Custom Policy Definitions Deployment'
           templateFilePath: './infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep'
@@ -323,6 +347,7 @@ jobs:
           
       - name: 'Deploy: Custom Role Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Custom Role Definitions Deployment'
           templateFilePath: './infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep'
@@ -335,6 +360,7 @@ jobs:
           
       - name: 'Deploy: Custom Management Group Diagnostic Settings'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Custom Management Group Diagnostic Settings'
           templateFilePath: './infra-as-code/bicep/orchestration/mgDiagSettingsAll/mgDiagSettingsAll.bicep'
@@ -347,6 +373,7 @@ jobs:
           
       - name: 'Deploy: Built-in and Custom Policy Assignments Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         
         with:
           displayName: 'Built-in and Custom Policy Assignments Deployment'
@@ -360,6 +387,7 @@ jobs:
           
       - name: 'Deploy: Deploy Subscription Placement'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Deploy Subscription Placement'
           templateFilePath: './infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep'
@@ -372,6 +400,7 @@ jobs:
           
       - name: 'Deploy: Connectivity Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Connectivity Resource Group Deployment'
           templateFilePath: './infra-as-code/bicep/modules/resourceGroup/resourceGroup.bicep'
@@ -384,6 +413,7 @@ jobs:
          
       - name: 'Deploy: Hub (VWAN) Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
         with:
           displayName: 'Hub (VWAN) Deployment'
           templateFilePath: './infra-as-code/bicep/modules/vwanConnectivity/vwanConnectivity.bicep'
