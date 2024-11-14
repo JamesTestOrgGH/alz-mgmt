@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "privdnsresolver-scotsconnect-test-connectivity-uksouth-01"
+    },
+    "location": {
+      "value": "uksouth"
+    },
+    "virtualNetworkResourceId":{
+      "value": "/subscriptions/79573c82-89eb-47ae-968e-c943e4549d2f/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01"
+    },
+    "inboundEndpointsname": {
+      "value": "pdns-inbound"
+    },
+    "inboundEndpointsSubnetResourceId": {
+      "value": "/subscriptions/79573c82-89eb-47ae-968e-c943e4549d2f/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01/subnets/snet-pdns-in"
+    },
+    "outboundEndpointsname": {
+      "value": "pdns-outbound"
+    },
+    "outboundEndpointsSubnetResourceId": {
+      "value": "/subscriptions/79573c82-89eb-47ae-968e-c943e4549d2f/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01/subnets/snet-pdns-out"
+    },
+    
+    "lock": {
+      "value": {
+        "kind": "CanNotDelete",
+        "name": "DoNotDelete"
+      }
+    },
+    "tags": {
+      "value": {
+        "environment": "Test",
+        "platform": "connectivity",
+        "region": "uksouth"
+      }
+    }
+  }
+}
