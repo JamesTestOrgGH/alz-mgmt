@@ -1,0 +1,69 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  
+  "parameters": {
+      "name": {
+          "value": "zscaler-cc-test-uksouth-01"
+      },
+      "location": {
+          "value": "uksouth"
+      },
+      "frontendIPConfigurationname": {
+          "value": "privateIPConfig1"
+      },
+      "subnetId": {
+          "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-zscaler-connectivity-test-uksouth-01/subnets/snet-zscaler-cc-1"
+      },
+      "backendport": {
+          "value": 0
+      },
+      "disableoutboundSnat": {
+          "value": true
+      },
+      "lbrprotocol": {
+          "value": "All"
+      },
+      "enableFloatingIP": {
+          "value": true
+      },
+      "enableTcpReset": {
+          "value": false
+      },
+      "frontendPort": {
+          "value": 0
+      },
+      "idleTimeoutInMinutes": {
+          "value": 4
+      },
+      "loadDistribution": {
+          "value": "Default"
+      },
+      "protocol": {
+          "value": "Http"
+      },
+      "intervalInSeconds": {
+          "value": 15
+      },
+      "numberOfProbes": {
+          "value": 2
+      },
+      "port": {
+          "value": 50000
+      },
+      "requestPath": {
+          "value": "/health"
+      },
+      "skuName": {
+          "value": "Standard"
+      },
+      "tags": {
+          "value": {
+              "environment": "Test",
+              "platform": "connectivity",
+              "region": "uksouth"
+          }
+      }
+      
+  }
+}

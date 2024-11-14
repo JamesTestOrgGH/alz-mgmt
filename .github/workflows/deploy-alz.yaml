@@ -1,0 +1,188 @@
+
+name: Deploy - platform CAF
+
+on:
+   push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/deploy.yaml
+      - platform/alz-caf/config/custom-parameters/*
+      - platform/alz-caf/config/custom-modules/*
+   workflow_dispatch:
+
+
+
+jobs:       
+             
+  deploy:
+    name: Deploy
+    
+    runs-on:
+      ubuntu-latest
+    concurrency: mgmt-tfstate
+    environment: alz-mgmt-apply
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      PARAMETERS_FILE_NAME: parameters.json
+
+    steps:
+      - name: Checkout Bicep Module
+        uses: actions/checkout@v4
+        if: github.event_name != 'pull_request'
+
+      - name: Get Bicep Variables
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-variables@main
+        if: github.event_name != 'pull_request'
+        with:
+          parameters_file_name: ${{ env.PARAMETERS_FILE_NAME }}
+
+      - name: Get On Demand Folder infra-as-code
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-on-demand-folder@main
+        if: github.event_name != 'pull_request'
+        with:
+          repository: "https://github.com/Azure/ALZ-Bicep"
+          releaseArtifactName: "accelerator.zip"
+          releaseVersion: "${{ env.RELEASE_VERSION }}"
+          sourcePath: "infra-as-code"
+          targetPath: "infra-as-code"
+          
+
+
+      - name: Install Bicep and Update Az Module
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-installer@main
+        if: github.event_name != 'pull_request'
+
+      - name: OIDC Login to Tenant
+        uses: azure/login@v2
+        if: github.event_name != 'pull_request'
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      - name: 'Deploy: Management Groups Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Management Groups Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/managementGroups.parameters.all.json'
+          managementGroupId: '${{ env.ROOT_PARENT_MANAGEMENT_GROUP_ID }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          
+
+          
+      - name: 'Deploy: Logging and Sentinel Resource Group Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Logging and Sentinel Resource Group Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/resourceGroup/resourceGroup.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/resourceGroupLoggingAndSentinel.parameters.all.json'
+          subscriptionId: '${{ env.MANAGEMENT_SUBSCRIPTION_ID }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'subscription'
+        
+          
+      - name: 'Deploy: Logging and Sentinel Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Logging and Sentinel Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/logging/logging.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/logging.parameters.all.json'
+          
+          subscriptionId: '${{ env.MANAGEMENT_SUBSCRIPTION_ID }}'
+          resourceGroupName: '${{ env.LOGGING_RESOURCE_GROUP }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'resourceGroup'
+      
+          
+
+      - name: 'Deploy: Custom Policy Definitions Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Custom Policy Definitions Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/customPolicyDefinitions.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          
+      - name: 'Deploy: Custom Role Definitions Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Custom Role Definitions Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/customRoleDefinitions.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          
+      - name: 'Deploy: Custom Management Group Diagnostic Settings'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Custom Management Group Diagnostic Settings'
+          templateFilePath: './infra-as-code/bicep/orchestration/mgDiagSettingsAll/mgDiagSettingsAll.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/mgDiagSettingsAll.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          
+      - name: 'Deploy: Built-in and Custom Policy Assignments Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        
+        with:
+          displayName: 'Built-in and Custom Policy Assignments Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/alzDefaultPolicyAssignments.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          
+      - name: 'Deploy: Deploy Subscription Placement'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Deploy Subscription Placement'
+          templateFilePath: './infra-as-code/bicep/orchestration/subPlacementAll/subPlacementAll.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/subPlacementAll.parameters.all.json'
+          managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'managementGroup'
+          
+      - name: 'Deploy: Connectivity Resource Group Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Connectivity Resource Group Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/resourceGroup/resourceGroup.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/resourceGroupConnectivity.parameters.all.json'
+          subscriptionId: '${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'subscription'
+
+         
+      - name: 'Deploy: Hub (VWAN) Deployment'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Hub (VWAN) Deployment'
+          templateFilePath: './infra-as-code/bicep/modules/vwanConnectivity/vwanConnectivity.bicep'
+          templateParametersFilePath: './platform/alz-caf/config/custom-parameters/vwanConnectivity.parameters.all.json'
+          subscriptionId: '${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: '${{ env.CONNECTIVITY_RESOURCE_GROUP }}'
+          location: '${{ env.LOCATION }}'
+          deploymentType: 'resourceGroup'
+
+
+         

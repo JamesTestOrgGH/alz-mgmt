@@ -1,0 +1,19 @@
+---
+name: Validate and WhatIf - platform CAF
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - .github/workflows/validate_and_whatif_alz.yaml
+      - 'platform/alz-caf/**'
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  validate_and_plan:
+    uses: JamesTestOrgGH/alz-mgmt-templates/.github/workflows/validate-whatif-alz.yaml@main
+    name: 'Validate and whatif'
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write

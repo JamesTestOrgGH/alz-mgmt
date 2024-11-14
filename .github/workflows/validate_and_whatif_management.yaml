@@ -1,0 +1,21 @@
+---
+name: Validate and WhatIf - Management
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - .github/workflows/validate_and_whatif_management.yaml
+      - .github/workflows/validate-whatif-management.yaml
+      - 'platform/subscriptions/management/**'
+
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  validate_and_plan:
+    uses: JamesTestOrgGH/alz-mgmt-templates/.github/workflows/validate-whatif-management.yaml@main
+    name: 'Validate and Whatif'
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write

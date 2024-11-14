@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "vnet-connectivity-test-uksouth-01"
+    },
+    "addressPrefixes": {
+      "value": [
+        "10.161.33.0/24"
+      ]
+    },
+    "location": {
+      "value": "uksouth"
+    },
+    "snet1": {
+      "value": "snet-pdns-in"
+    },
+    "snet2": {
+      "value": "snet-pdns-out"
+    },
+    "snet1prefix": {
+      "value": "10.161.33.0/28"
+    },
+    "snet2prefix": {
+      "value": "10.161.33.16/28"
+    },
+    "bastionsubnetprefix": {
+      "value": "10.161.33.32/27"
+    },
+    "snet1delegation": {
+      "value": "Microsoft.Network/dnsResolvers"
+    },
+    "snet2delegation": {
+      "value": "Microsoft.Network/dnsResolvers"
+    },
+    "tags": {
+      "value": {
+        "environment": "Test",
+        "platform": "connectivity",
+        "region": "uksouth"
+      }
+    },
+
+    "nsgname": {
+      "value": "nsg-snet-pdns-in"
+    }
+    
+  }
+}

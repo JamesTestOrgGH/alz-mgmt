@@ -1,0 +1,94 @@
+name: Deploy - Management
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/deploy_management.yaml
+      - platform/subscriptions/management/**
+  workflow_dispatch:
+
+jobs:
+             
+  deploy:
+    name: Deploy Management LZ Resources
+    
+    runs-on:
+      ubuntu-latest
+    concurrency: mgmt-tfstate
+    environment: alz-mgmt-apply
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      PARAMETERS_FILE_NAME: parameters.json
+
+    steps:
+      - name: Checkout Bicep Module
+        uses: actions/checkout@v4
+        if: github.event_name != 'pull_request'      
+
+      - name: Install Bicep and Update Az Module
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-installer@main
+        if: github.event_name != 'pull_request'
+
+      - name: OIDC Login to Tenant
+        uses: azure/login@v2
+        if: github.event_name != 'pull_request'
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+      
+      
+      - name: 'Deploy: Management Vnet'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Management-Vnet'
+          templateFilePath: './platform/subscriptions/management/vnet/deploy.bicep'
+          templateParametersFilePath: './platform/subscriptions/management/vnet/parameters/vnet-management-test-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.MANAGEMENT_SUBSCRIPTION_ID }}'
+          resourceGroupName: 'rg-network-management-test-uksouth-01'
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'subscription'
+
+      - name: 'Deploy: KeyVault'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'KeyVault'
+          templateFilePath: './platform/subscriptions/management/keyvault/deploy.bicep'
+          templateParametersFilePath: './platform/subscriptions/management/keyvault/parameters/kv-man-test-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.MANAGEMENT_SUBSCRIPTION_ID }}'
+          resourceGroupName: ''
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'subscription'
+      
+      - name: 'Deploy: Virtual Machine - Jump Server'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Virtual Machine - Jump Server'
+          templateFilePath: './platform/subscriptions/management/virtualmachines/deploy.bicep'
+          templateParametersFilePath: './platform/subscriptions/management/virtualmachines/parameters/mgmtvm01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.MANAGEMENT_SUBSCRIPTION_ID }}'
+          resourceGroupName: ''
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'subscription'
+
+      
+
+
+
+          
+
+      
+    
+      
+
+         
