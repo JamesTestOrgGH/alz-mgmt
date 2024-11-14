@@ -9,19 +9,19 @@
       "value": "uksouth"
     },
     "virtualNetworkResourceId":{
-      "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01"
+      "value": "/subscriptions/79573c82-89eb-47ae-968e-c943e4549d2f/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01"
     },
     "inboundEndpointsname": {
       "value": "pdns-inbound"
     },
     "inboundEndpointsSubnetResourceId": {
-      "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01/subnets/snet-pdns-in"
+      "value": "/subscriptions/79573c82-89eb-47ae-968e-c943e4549d2f/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01/subnets/snet-pdns-in"
     },
     "outboundEndpointsname": {
       "value": "pdns-outbound"
     },
     "outboundEndpointsSubnetResourceId": {
-      "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01/subnets/snet-pdns-out"
+      "value": "/subscriptions/79573c82-89eb-47ae-968e-c943e4549d2f/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01/subnets/snet-pdns-out"
     },
     
     "lock": {
