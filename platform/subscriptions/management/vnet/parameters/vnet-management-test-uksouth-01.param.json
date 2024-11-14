@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "vnet-management-test-uksouth-01"
+    },
+    "addressPrefixes": {
+      "value": [
+        "10.161.38.0/24"
+      ]
+    },
+    "location": {
+      "value": "uksouth"
+    },
+    "snet1": {
+      "value": "snet-management-test-uksouth-jump"
+    },
+
+    "snet1prefix": {
+      "value": "10.161.38.0/28"
+    },
+
+    "tags": {
+      "value": {
+        "environment": "Test",
+        "platform": "connectivity",
+        "region": "uksouth"
+      }
+    },
+
+    "nsgname1": {
+      "value": "nsg-snet-management-test-uksouth-jump"
+    }
+    
+  }
+}

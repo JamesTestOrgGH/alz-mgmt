@@ -1,0 +1,149 @@
+name: Deploy Bicep - Connectivity
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/deploy_connectivity.yaml
+      - platformsubscriptions/connectivity/**
+  workflow_dispatch:
+
+jobs:
+             
+  deploy:
+    name: Deploy
+    
+    runs-on:
+      ubuntu-latest
+    concurrency: mgmt-tfstate
+    environment: alz-mgmt-apply
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      PARAMETERS_FILE_NAME: parameters.json
+
+    steps:
+      - name: Checkout Bicep Module
+        uses: actions/checkout@v4
+        if: github.event_name != 'pull_request'      
+
+      - name: Install Bicep and Update Az Module
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-installer@main
+        if: github.event_name != 'pull_request'
+
+      - name: OIDC Login to Tenant
+        uses: azure/login@v2
+        if: github.event_name != 'pull_request'
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+      
+      
+      - name: 'Deploy: Connectivity Vnet'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Connectivity-Vnet'
+          templateFilePath: './platformsubscriptions/connectivity/vnet/connectivity/deploy.bicep'
+          templateParametersFilePath: './platformsubscriptions/connectivity/vnet/connectivity/parameters/vnet-connectivity-test-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: 'rg-alz-connectivity'
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'resourceGroup'
+      
+      - name: 'Deploy: Zscaler Vnet'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+
+          displayName: 'Zscaler-Vnet'
+          templateFilePath: './platformsubscriptions/connectivity/vnet/zscaler/deploy.bicep'
+          templateParametersFilePath: './platformsubscriptions/connectivity/vnet/zscaler/parameters/vnet-zscaler-connectivity-test-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: 'rg-alz-connectivity'
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'resourceGroup'
+
+      - name: 'Deploy: KeyVault'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'KeyVault'
+          templateFilePath: './platformsubscriptions/connectivity/keyvault/deploy.bicep'
+          templateParametersFilePath: './platformsubscriptions/connectivity/keyvault/parameters/kv-con-test-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: ''
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'subscription'
+      
+      - name: 'Deploy: LoadBalancer'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Loadbalancer'
+          templateFilePath: './platformsubscriptions/connectivity/loadbalancer/deploy.bicep'
+          templateParametersFilePath: './platformsubscriptions/connectivity/loadbalancer/parameters/lb-zscaler-cc-test-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: 'rg-alz-connectivity'
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'resourceGroup'
+
+      - name: 'Deploy: Nat Gateway'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+
+          displayName: 'Nat Gateway'
+          templateFilePath: './platformsubscriptions/connectivity/natgateway/deploy.bicep'
+          templateParametersFilePath: './platformsubscriptions/connectivity/natgateway/parameters/ngw-zscaler-cc-test-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: 'rg-alz-connectivity'
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'resourceGroup'
+
+          
+      - name: 'Deploy: Private DNS Resolver'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+
+          displayName: 'Private DNS Resolver'
+          templateFilePath: './platformsubscriptions/connectivity/privatednsresolver/deploy.bicep'
+          templateParametersFilePath: './platformsubscriptions/connectivity/privatednsresolver/parameters/privdnsresolver-scotsconnect-test-connectivity-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: 'rg-alz-connectivity'
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'resourceGroup'
+
+
+      - name: 'Deploy: Azure Bastion'
+        uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
+        if: github.event_name != 'pull_request'
+        with:
+          displayName: 'Azure Bastion'
+          templateFilePath: './platformsubscriptions/connectivity/bastion/deploy.bicep'
+          templateParametersFilePath: './platformsubscriptions/connectivity/bastion/parameters/bastion-connectivity-test-uksouth-01.param.json'
+          managementGroupId: ''
+          subscriptionId: '${{ vars.CONNECTIVITY_SUBSCRIPTION_ID }}'
+          resourceGroupName: ''
+          location: '${{ vars.LOCATION }}'
+          deploymentType: 'subscription'
+
+
+
+          
+
+      
+    
+      
+
+         

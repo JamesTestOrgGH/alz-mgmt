@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  
+  "parameters": {
+      "name": {
+          "value": "kv-mgmt-uksouth-01"
+      },
+      "ResourceGroupName": {
+          "value": "rg-keyvault-management-test-uksouth-01"
+      },
+      "location": {
+          "value": "uksouth"
+      },
+      "enablepurgeprotection": {
+          "value": true
+      },
+      "enablesoftdelete": {
+          "value": true
+      },
+      "tags": {
+          "value": {
+              "environment": "Test",
+              "platform": "Management",
+              "region": "uksouth"
+          }
+      }
+      
+  }
+}

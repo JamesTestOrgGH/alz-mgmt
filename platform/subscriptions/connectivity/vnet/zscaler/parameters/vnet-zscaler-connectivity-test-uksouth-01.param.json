@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "vnet-zscaler-connectivity-test-uksouth-01"
+    },
+    "addressPrefixes": {
+      "value": [
+        "10.161.34.0/24"
+      ]
+    },
+    "location": {
+      "value": "uksouth"
+    },
+    "snet1": {
+      "value": "snet-zscaler-cc-1"
+    },
+
+    "snet2": {
+      "value": "snet-zscaler-cc-2"
+    },
+
+    "snet1prefix": {
+      "value": "10.161.34.128/26"
+    },
+
+    "snet2prefix": {
+      "value": "10.161.34.0/26"
+    },
+
+    "natgwResourceId": {
+      "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/natGateways/ngw-zscaler-cc-test-uksouth-01"
+    },
+    "tags": {
+      "value": {
+        "environment": "Test",
+        "platform": "connectivity",
+        "region": "uksouth"
+      }
+    },
+
+    "nsgname1": {
+      "value": "nsg-snet-zscaler-cc-1"
+    },
+    "nsgname2": {
+      "value": "nsg-snet-zscaler-cc-2"
+    }
+    
+  }
+}

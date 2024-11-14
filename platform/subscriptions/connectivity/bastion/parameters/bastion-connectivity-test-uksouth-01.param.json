@@ -1,0 +1,61 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "value": "bastion-connectivity-test-uksouth-01"
+        },
+        "Location": {
+            "value": "uksouth"
+        },
+        "publicIPAddressversion": {
+            "value": "IPv4"
+        },
+        "publicIPAllocationMethod": {
+            "value": "Static"
+        },
+        "publicIPSku": {
+            "value": "Standard"
+        },
+        "publicIPskuTier": {
+            "value": "Regional"
+        },
+        "tags": {
+            "value": {
+                "environment": "Test",
+                "platform": "connectivity",
+                "region": "uksouth"
+            }
+        },
+        "vNetId": {
+            "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/virtualNetworks/vnet-connectivity-test-uksouth-01"
+        },
+        "bastionSubnetPublicIpResourceId": {
+            "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-bastion-connectivity-test-uksouth-01/providers/Microsoft.Network/publicIPAddresses/pip-bastion-connectivity-test-uksouth-01"
+        },
+        "scaleUnits": {
+            "value": 2
+        },
+        "bastionsku": {
+            "value": "Standard"
+        },
+        "disableCopyPaste": {
+            "value": false
+        },
+        "enableFileCopy": {
+            "value": false
+        },
+        "enableIpConnect": {
+            "value": false
+        },
+        "enableShareableLink": {
+            "value": false
+        },
+        "lock": {
+            "value": {
+                "kind": "CanNotDelete",
+                "name": "DoNotDelete"
+            }
+        }
+    }
+}

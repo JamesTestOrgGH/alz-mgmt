@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "ngw-zscaler-cc-test-uksouth-01"
+    },
+    "zone": {
+      "value": 1
+    },
+    "location": {
+      "value": "uksouth"
+    },
+    "PublicIPName":{
+      "value": "pip-ngw-zscaler-cc-test-uksouth-01"
+    },
+    "SkuTier": {
+      "value": "Regional"
+    },
+    "zones":{
+      "value": [
+        1,2,3
+      ]
+    },
+    "lock": {
+      "value": {
+        "kind": "CanNotDelete",
+        "name": "DoNotDelete"
+      }
+    },
+    "tags": {
+      "value": {
+        "environment": "Test",
+        "platform": "connectivity",
+        "region": "uksouth"
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "uksouth"
+    },
+    "name": {
+      "value": "mgmtvm01"
+    },
+    "resourcegroupname": {
+      "value": "rg-vms-management-test-uksouth-01"
+    },
+    "adminusername": {
+      "value": "localAdminUser"
+    },
+    "imageReference": {
+      "value": {
+        "offer": "WindowsServer",
+        "publisher": "MicrosoftWindowsServer",
+        "sku": "2022-datacenter-azure-edition",
+        "version": "latest"
+      }
+    },
+    "subnetResourceId": {
+      "value": "/subscriptions/577faed0-c3c7-4976-af36-b204b9c212d8/resourceGroups/rg-network-management-test-uksouth-01/providers/Microsoft.Network/virtualNetworks/vnet-management-test-uksouth-01/subnets/snet-management-test-uksouth-jump"
+  
+    },
+    "osdisk": {
+      "value": {
+        "caching": "ReadWrite",
+        "createOption": "FromImage",
+        "managedDisk": {
+          "storageAccountType": "Standard_LRS"
+        },
+        "name": "osdisk",
+        "osType": "Windows",
+        "diskSizeGB": 128
+      }
+    },
+    "ostype": {
+      "value": "Windows"
+    },
+    "vmSize": {
+      "value": "Standard_D2s_v3"
+    },
+    "zone": {
+      "value": 3
+    }
+  }
+}

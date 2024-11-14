@@ -1,0 +1,50 @@
+name: Deploy AMBA
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/deploy_amba.yaml
+      - platform/amba/**
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  Location: "uksouth"
+  ManagementGroupPrefix: "alz"
+  parameters: "./platform/amba/amba-arm-params.json"
+
+jobs:
+  deploy_job:
+    name: Deploy AMBA
+    runs-on: ubuntu-latest
+
+    environment: alz-mgmt-apply
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: OIDC Login to Tenant
+        uses: azure/login@v2
+        if: github.event_name != 'pull_request'
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      - name: Az CLI Deploy AMBA ARM template
+        id: deploy_amba
+        shell: bash
+        run: |
+          az deployment mg create --template-uri https://raw.githubusercontent.com/Azure/azure-monitor-baseline-alerts/main/patterns/alz/alzArm.json --location ${{ env.Location }} --management-group-id ${{ env.ManagementGroupPrefix }} --parameters ${{ env.parameters }}
