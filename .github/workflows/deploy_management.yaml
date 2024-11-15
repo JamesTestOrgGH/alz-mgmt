@@ -54,6 +54,8 @@ jobs:
           resourceGroupName: 'rg-network-management-test-uksouth-01'
           location: '${{ vars.LOCATION }}'
           deploymentType: 'subscription'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
 
       - name: 'Deploy: KeyVault'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -67,6 +69,8 @@ jobs:
           resourceGroupName: ''
           location: '${{ vars.LOCATION }}'
           deploymentType: 'subscription'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
       
       - name: 'Deploy: Virtual Machine - Jump Server'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -80,6 +84,8 @@ jobs:
           resourceGroupName: ''
           location: '${{ vars.LOCATION }}'
           deploymentType: 'subscription'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
 
       
 
