@@ -16,17 +16,17 @@
     },
     "parPlatformManagementMgSubs": {
       "value": [
-        "577faed0-c3c7-4976-af36-b204b9c212d8"
+        "b38f7bd8-51da-4df1-914c-4a20ef116a6a"
       ]
     },
     "parPlatformConnectivityMgSubs": {
       "value": [
-        "b344188e-4e43-430c-bb68-e892be007536"
+        "79573c82-89eb-47ae-968e-c943e4549d2f"
       ]
     },
     "parPlatformIdentityMgSubs": {
       "value": [
-        "c07ad7ea-932b-4f11-92f3-ecbb41263689"
+        "93a95fd3-3481-4b05-8d1c-c99917694146"
       ]
     },
     "parLandingZonesMgSubs": {

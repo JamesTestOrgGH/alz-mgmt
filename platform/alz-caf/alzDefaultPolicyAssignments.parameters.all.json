@@ -39,22 +39,22 @@
       "value": "uksouth"
     },
     "parLogAnalyticsWorkspaceResourceId": {
-      "value": "/subscriptions/577faed0-c3c7-4976-af36-b204b9c212d8/resourcegroups/rg-alz-logging/providers/microsoft.operationalinsights/workspaces/alz-log-analytics"
+      "value": "/subscriptions/b38f7bd8-51da-4df1-914c-4a20ef116a6a/resourcegroups/rg-alz-logging/providers/microsoft.operationalinsights/workspaces/alz-log-analytics"
     },
     "parLogAnalyticsWorkspaceLogRetentionInDays": {
       "value": "365"
     },
     "parDataCollectionRuleVMInsightsResourceId": {
-      "value": "/subscriptions/577faed0-c3c7-4976-af36-b204b9c212d8/resourcegroups/rg-alz-logging/providers/Microsoft.Insights/dataCollectionRules/alz-ama-vmi-dcr"
+      "value": "/subscriptions/b38f7bd8-51da-4df1-914c-4a20ef116a6a/resourcegroups/rg-alz-logging/providers/Microsoft.Insights/dataCollectionRules/alz-ama-vmi-dcr"
     },
     "parDataCollectionRuleChangeTrackingResourceId": {
-      "value": "/subscriptions/577faed0-c3c7-4976-af36-b204b9c212d8/resourcegroups/rg-alz-logging/providers/Microsoft.Insights/dataCollectionRules/alz-ama-ct-dcr"
+      "value": "/subscriptions/b38f7bd8-51da-4df1-914c-4a20ef116a6a/resourcegroups/rg-alz-logging/providers/Microsoft.Insights/dataCollectionRules/alz-ama-ct-dcr"
     },
     "parDataCollectionRuleMDFCSQLResourceId": {
-      "value": "/subscriptions/577faed0-c3c7-4976-af36-b204b9c212d8/resourcegroups/rg-alz-logging/providers/Microsoft.Insights/dataCollectionRules/ama-mdfcsql-default-dcr"
+      "value": "/subscriptions/b38f7bd8-51da-4df1-914c-4a20ef116a6a/resourcegroups/rg-alz-logging/providers/Microsoft.Insights/dataCollectionRules/ama-mdfcsql-default-dcr"
     },
     "parUserAssignedManagedIdentityResourceId": {
-      "value": "/subscriptions/577faed0-c3c7-4976-af36-b204b9c212d8/resourcegroups/rg-alz-logging/providers/Microsoft.ManagedIdentity/userAssignedIdentities/alz-umi-identity"
+      "value": "/subscriptions/b38f7bd8-51da-4df1-914c-4a20ef116a6a/resourcegroups/rg-alz-logging/providers/Microsoft.ManagedIdentity/userAssignedIdentities/alz-umi-identity"
     },
     "parAutomationAccountName": {
       "value": "alz-automation-account"
