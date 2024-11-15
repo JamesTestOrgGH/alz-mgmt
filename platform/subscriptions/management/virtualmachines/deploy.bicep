@@ -1,7 +1,7 @@
 targetScope = 'subscription'
-param subscriptionId string = '577faed0-c3c7-4976-af36-b204b9c212d8'
-param kvResourceGroup string = 'rg-keyvault-management-test-uksouth-01'
-param keyvaultname string = 'kv-mgmt-uksouth-01'
+param subscriptionId string
+param kvResourceGroup string 
+param keyvaultname string 
 param location string
 param name string
 param resourceGroupName string

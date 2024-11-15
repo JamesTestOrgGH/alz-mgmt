@@ -5,6 +5,15 @@
     "location": {
       "value": "uksouth"
     },
+    "subscription": {
+      "value": "b38f7bd8-51da-4df1-914c-4a20ef116a6a"
+    },
+    "kvResourceGroup": {
+      "value": "rg-keyvault-management-test-uksouth-01"
+    },
+    "keyvault": {
+      "value": "kv-mgmt-test-uksouth-01"
+    },
     "name": {
       "value": "mgmtvm01"
     },
