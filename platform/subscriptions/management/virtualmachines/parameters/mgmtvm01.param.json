@@ -13,7 +13,7 @@
       "value": "rg-keyvault-management-test-uksouth-01"
     },
     "keyvaultname": {
-      "value": "kv-mgmt-test-uksouth-01"
+      "value": "kv-mgmt-jw-uksouth-01"
     },
     "name": {
       "value": "mgmtvm01"
