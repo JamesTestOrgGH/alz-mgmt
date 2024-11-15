@@ -55,4 +55,7 @@ module virtualMachine 'br/public:avm/res/compute/virtual-machine:0.8.0' = {
     zone: zone
     location: location
   }
+  dependsOn: [
+    keyVault
+  ]
 }
