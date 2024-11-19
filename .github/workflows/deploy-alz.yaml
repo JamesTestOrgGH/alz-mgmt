@@ -74,6 +74,8 @@ jobs:
           managementGroupId: '${{ env.ROOT_PARENT_MANAGEMENT_GROUP_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
           
 
           
@@ -87,6 +89,8 @@ jobs:
           subscriptionId: '${{ env.MANAGEMENT_SUBSCRIPTION_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
         
           
       - name: 'Deploy: Logging and Sentinel Deployment'
@@ -101,6 +105,8 @@ jobs:
           resourceGroupName: '${{ env.LOGGING_RESOURCE_GROUP }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
       
           
 
@@ -114,6 +120,8 @@ jobs:
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
           
       - name: 'Deploy: Custom Role Definitions Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -125,6 +133,8 @@ jobs:
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
           
       - name: 'Deploy: Custom Management Group Diagnostic Settings'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -136,6 +146,8 @@ jobs:
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
           
       - name: 'Deploy: Built-in and Custom Policy Assignments Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -148,6 +160,8 @@ jobs:
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
           
       - name: 'Deploy: Deploy Subscription Placement'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -159,6 +173,8 @@ jobs:
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
           
       - name: 'Deploy: Connectivity Resource Group Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
@@ -170,6 +186,8 @@ jobs:
           subscriptionId: '${{ env.CONNECTIVITY_SUBSCRIPTION_ID }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'subscription'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
 
          
       - name: 'Deploy: Hub (VWAN) Deployment'
@@ -183,6 +201,8 @@ jobs:
           resourceGroupName: '${{ env.CONNECTIVITY_RESOURCE_GROUP }}'
           location: '${{ env.LOCATION }}'
           deploymentType: 'resourceGroup'
+          firstRunWhatIf: 'false'
+          whatIfEnabled: 'false'
 
 
          
