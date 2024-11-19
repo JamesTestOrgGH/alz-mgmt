@@ -142,20 +142,7 @@
         "privatelink.webpubsub.azure.com"
       ]
     },
-    "parPrivateDnsZoneAutoMergeAzureBackupZone": {
-      "value": false
-    },
-    "parVirtualNetworkIdToLink": {
-      "value": ""
-    },
-    "parTags": {
-      "value": {
-        "Environment": "test"
-      }
-    },
-    "parVirtualNetworkIdToLinkFailover": {
-      "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/HUB_Networking_POC/providers/Microsoft.Network/virtualNetworks/alz-hub-eastus-failover"
-    },
+
     "parTelemetryOptOut": {
       "value": false
     },
