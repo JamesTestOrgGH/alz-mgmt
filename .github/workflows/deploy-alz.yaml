@@ -148,16 +148,16 @@ jobs:
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
           whatIfEnabled: 'false'
-          
+
       - name: 'Deploy: Built-in and Custom Policy Assignments Deployment'
         uses: JamesTestOrgGH/alz-mgmt-templates/.github/actions/bicep-deploy@main
-        if: github.event_name != 'pull_request'
-        
         with:
           displayName: 'Built-in and Custom Policy Assignments Deployment'
           templateFilePath: './infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep'
           templateParametersFilePath: './platform/alz-caf/config/custom-parameters/alzDefaultPolicyAssignments.parameters.all.json'
           managementGroupId: '${{ env.MANAGEMENT_GROUP_ID }}'
+          subscriptionId: ''
+          resourceGroupName: ''
           location: '${{ env.LOCATION }}'
           deploymentType: 'managementGroup'
           firstRunWhatIf: 'false'
