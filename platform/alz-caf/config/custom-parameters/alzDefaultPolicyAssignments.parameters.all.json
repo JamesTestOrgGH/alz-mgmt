@@ -63,10 +63,10 @@
       "value": "james.ward@servent.co.uk"
     },
     "parDdosProtectionPlanId": {
-      "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/ddosProtectionPlans/alz-ddos-plan"
+      "value": "/subscriptions/79573c82-89eb-47ae-968e-c943e4549d2f/resourceGroups/rg-alz-connectivity/providers/Microsoft.Network/ddosProtectionPlans/alz-ddos-plan"
     },
     "parPrivateDnsResourceGroupId": {
-      "value": "/subscriptions/b344188e-4e43-430c-bb68-e892be007536/resourceGroups/rg-alz-connectivity"
+      "value": "/subscriptions/79573c82-89eb-47ae-968e-c943e4549d2f/resourceGroups/rg-alz-connectivity"
     },
     "parPrivateDnsZonesNamesToAuditInCorp": {
       "value": []
